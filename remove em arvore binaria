@@ -1,0 +1,130 @@
+
+class BSTNode(object):
+    def __init__(self, key, value = None, left = None, right = None, parent = None):
+        self.key = key
+        self.value = value
+        self.left = left
+        self.right = right
+        self.parent = parent
+
+    def add(self, node):
+        if node.key < self.key:
+            if self.left is None:
+                self.left = node
+                node.parent = self
+            else:
+                self.left.add(node)
+
+        if node.key >= self.key:
+            if self.right is None:
+                self.right = node
+                node.parent = self
+            else:
+                self.right.add(node)
+
+    def imprimeArvore(self):
+        print("Imprimindo Arvore... ")
+        root.in_order()
+            
+                
+    def in_order(self):
+        #print("ESQ: "+str(self.key))
+
+        print(self.key)
+        if self.left:
+            self.left.in_order()
+
+        #print(self.key)
+
+        #print("Dir: "+str(self.key))
+        if self.right:
+            #print(str(self.key)+ " Dir: "+str(self.right.key))
+            self.right.in_order()
+
+    def search(self, key):
+        if key == self.key:
+            return self
+        if key < self.key and self.left:
+            return self.left.search(key)
+        if key > self.key and self.right:
+            return self.right.search(key)
+
+    def remove(self,key):
+        print("Removeer no "+str(key))
+        print("  Procurando o nó "+str(key))
+        no = root.search(key)
+        if no:
+            print ("  No encontrado")
+            
+           # print("  No pai "+str(no.parent.key))
+            
+            
+            #NO FOLHA
+            if(no.left, no.right) == (None,None):
+                print ("  No FOLHA")
+                if no.parent is None:
+                    self.root = None
+                elif no.key > no.parent.key:
+                    print ("  FILHO A DIREITA")
+                    no.parent.right =  None
+                    print ("  No REMOVIDO")
+                    root.imprimeArvore()
+                else:
+                    print ("  FILHO A ESQUERDA")
+                    no.parent.left =  None
+                    print ("  NO REMOVIDO")
+                    root.imprimeArvore()
+            # SE TEM DOIS FILHOS
+            if None  not in(no.left, no.right):
+                r = no.right #neste momento R é 18
+                q =  no #Q é no que foi removido
+                print ("  NO REMOVIDO  " + str(q.key))
+                no.key = r.key# no.key recebe o novo ROOT                
+                no = r
+                print ("  TESTE 3  " + str(no.key))
+                print ("  TESTE 4  " + str(r.key))
+                print ("  No COM 2 FILHOS")
+                root.imprimeArvore()
+            
+            #SE TEM SO UM FILHO
+        elif None in (no.left, no.right):
+            print ("  No COM SOMENTE UM FILHO")
+            #C é um filho não nulo
+            c = no.left
+            if c is None:
+                c = no.right
+            if parent is None:
+                self.root=c
+            elif no.key > no.parent.key:
+                parent.left = c
+            else:
+                parent.right = c
+                    
+        
+'''root = BSTNode(9)
+root.left = BSTNode(4)
+root.left.right = BSTNode(6)
+
+root.right = BSTNode(20)  
+root.right.right = BSTNode(21)
+root.right.left = BSTNode(15)
+
+root.right.left.right = BSTNode(17)
+root.right.left.right.left = BSTNode(16)'''
+
+root = BSTNode(10)
+root.add(BSTNode(7))
+root.add(BSTNode(3))
+root.add(BSTNode(18))
+root.add(BSTNode(11))
+root.add(BSTNode(9))
+root.add(BSTNode(8))
+
+root.imprimeArvore()
+
+root.remove(10)
+#root.remove(16)
+#root.remove(15)
+#root.remove(4)
+#root.remove(20)
+
